@@ -18,6 +18,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// API Check
+app.get('/api', (req, res) => {
+  res.status(200).json({ message: 'API is working!' });
+});
+
 // Admin login
 app.post('/api/signin', async (req, res) => {
   try {
@@ -121,6 +126,7 @@ app.post('/api/savedata', async (req, res) => {
           SIZE varchar(255),
           COUNT varchar(255),
           SUM varchar(255),
+          sensorType varchar(255),
           CREATED_AT timestamp DEFAULT CURRENT_TIMESTAMP
         );
       `;
@@ -132,6 +138,7 @@ app.post('/api/savedata', async (req, res) => {
           size: item.size,
           count: item.count,
           sum: item.sum || null,
+          sensorType: item.sensorType || 'ultrasonic',
           createdAt: new Date().toISOString(),
         },
       }));
@@ -155,6 +162,7 @@ app.get('/api/getdata', async (req, res) => {
         SIZE varchar(255),
         COUNT varchar(255),
         SUM varchar(255),
+        sensorType varchar(255),
         CREATED_AT timestamp DEFAULT CURRENT_TIMESTAMP
       );
     `;
@@ -212,7 +220,7 @@ app.post('/api/timeupdate', async (req, res) => {
   });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5555;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

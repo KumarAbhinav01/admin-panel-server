@@ -3,15 +3,15 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Admin {
-  id       Int     @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
   name     String
-  email    String  @unique
+  email    String @unique
   password String
   status   String
 }
@@ -26,10 +26,11 @@ model TimeSprint {
 }
 
 model AllData {
-  id        Int      @id @default(autoincrement())
-  time      String
-  size      String
-  count     String
-  sum       String?
-  createdAt DateTime @default(now())
+  id         Int      @id @default(autoincrement())
+  time       String
+  size       String
+  count      String
+  sum        String?
+  sensorType String   @default("ultrasonic")
+  createdAt  DateTime @default(now())
 }
